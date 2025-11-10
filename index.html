@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Análisis Dataset NSL-KDD</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -66,26 +65,6 @@
             transform: scale(1.05);
         }
         
-        .btn-outline-primary {
-            color: var(--secondary-color);
-            border-color: var(--secondary-color);
-            border-radius: 30px;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-        
-        .btn-outline-primary:hover {
-            background-color: var(--secondary-color);
-            color: white;
-            transform: scale(1.05);
-        }
-        
-        .chart-container {
-            position: relative;
-            height: 300px;
-            margin: 1.5rem 0;
-        }
-        
         .feature-highlight {
             background-color: var(--light-color);
             border-left: 4px solid var(--secondary-color);
@@ -106,26 +85,11 @@
             display: inline-block;
         }
         
-        .status-badge {
-            background-color: #2ecc71;
-            color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-        
         footer {
             background-color: var(--dark-color);
             color: white;
             padding: 2rem 0;
             margin-top: 3rem;
-        }
-        
-        .accordion-button:not(.collapsed) {
-            background-color: rgba(52, 152, 219, 0.1);
-            color: var(--primary-color);
-            font-weight: 600;
         }
         
         .table-responsive {
@@ -164,6 +128,27 @@
         .navbar-brand {
             font-weight: 700;
             color: var(--primary-color) !important;
+        }
+        
+        .step-icon {
+            font-size: 2rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .step-card {
+            text-align: center;
+            padding: 1.5rem;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            height: 100%;
+            transition: all 0.3s;
+        }
+        
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
         }
     </style>
 </head>
@@ -209,9 +194,9 @@
                         <a href="#analysis" class="btn btn-light btn-lg">
                             <i class="fas fa-chart-bar me-2"></i>Ver Análisis Completo
                         </a>
-                        <a href="#" class="btn btn-outline-light btn-lg">
+                        <button id="downloadNotebook" class="btn btn-outline-light btn-lg">
                             <i class="fas fa-download me-2"></i>Descargar Notebook
-                        </a>
+                        </button>
                     </div>
                 </div>
                 <div class="col-lg-4 text-center">
@@ -366,13 +351,61 @@
                         
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="chart-container">
-                                    <canvas id="classDistributionChart"></canvas>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Distribución de Clases (%)</h5>
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                Normal
+                                                <span class="badge bg-primary rounded-pill">53.5%</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                DoS
+                                                <span class="badge bg-danger rounded-pill">21.3%</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                Probe
+                                                <span class="badge bg-warning rounded-pill">13.2%</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                R2L
+                                                <span class="badge bg-info rounded-pill">10.1%</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                U2R
+                                                <span class="badge bg-secondary rounded-pill">1.9%</span>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="chart-container">
-                                    <canvas id="attackTypesChart"></canvas>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Tipos de Ataque Principales</h5>
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                Neptune
+                                                <span class="badge bg-primary rounded-pill">41,214</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                Satan
+                                                <span class="badge bg-primary rounded-pill">3,633</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                IPSweep
+                                                <span class="badge bg-primary rounded-pill">3,599</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                PortSweep
+                                                <span class="badge bg-primary rounded-pill">2,931</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                Smurf
+                                                <span class="badge bg-primary rounded-pill">2,646</span>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -396,8 +429,25 @@
                     <div class="accordion-body">
                         <p>El análisis de importancia de características nos permite identificar qué atributos del dataset tienen mayor poder predictivo para la clasificación de intrusiones.</p>
                         
-                        <div class="chart-container">
-                            <canvas id="featureImportanceChart"></canvas>
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Características Más Relevantes</h5>
+                                <div class="progress mb-3" style="height: 25px;">
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: 15.2%">src_bytes (15.2%)</div>
+                                </div>
+                                <div class="progress mb-3" style="height: 25px;">
+                                    <div class="progress-bar bg-info" role="progressbar" style="width: 12.8%">dst_bytes (12.8%)</div>
+                                </div>
+                                <div class="progress mb-3" style="height: 25px;">
+                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 9.8%">service (9.8%)</div>
+                                </div>
+                                <div class="progress mb-3" style="height: 25px;">
+                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 8.7%">flag (8.7%)</div>
+                                </div>
+                                <div class="progress mb-3" style="height: 25px;">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 7.6%">count (7.6%)</div>
+                                </div>
+                            </div>
                         </div>
                         
                         <div class="row mt-4">
@@ -437,17 +487,70 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <h5>Pasos de Preprocesamiento:</h5>
-                                <ol>
-                                    <li>Limpieza de datos y manejo de valores faltantes</li>
-                                    <li>Codificación de variables categóricas (One-Hot Encoding)</li>
-                                    <li>Normalización de características numéricas</li>
-                                    <li>Balanceo de clases (SMOTE)</li>
-                                    <li>División en conjuntos de entrenamiento y prueba</li>
-                                </ol>
+                                <div class="row mt-4">
+                                    <div class="col-md-6 mb-4">
+                                        <div class="step-card">
+                                            <div class="step-icon">
+                                                <i class="fas fa-broom"></i>
+                                            </div>
+                                            <h5>Limpieza</h5>
+                                            <p>Manejo de valores faltantes y duplicados</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+                                        <div class="step-card">
+                                            <div class="step-icon">
+                                                <i class="fas fa-code"></i>
+                                            </div>
+                                            <h5>Codificación</h5>
+                                            <p>One-Hot Encoding para variables categóricas</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+                                        <div class="step-card">
+                                            <div class="step-icon">
+                                                <i class="fas fa-sliders-h"></i>
+                                            </div>
+                                            <h5>Normalización</h5>
+                                            <p>Escalado de características numéricas</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+                                        <div class="step-card">
+                                            <div class="step-icon">
+                                                <i class="fas fa-balance-scale"></i>
+                                            </div>
+                                            <h5>Balanceo</h5>
+                                            <p>SMOTE para clases desbalanceadas</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="chart-container">
-                                    <canvas id="preprocessingChart"></canvas>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Proceso de Preprocesamiento</h5>
+                                        <div class="d-flex justify-content-between mb-3">
+                                            <span>Datos Originales</span>
+                                            <span>100%</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between mb-3">
+                                            <span>Después de Limpieza</span>
+                                            <span>95%</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between mb-3">
+                                            <span>Después de Codificación</span>
+                                            <span>87%</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between mb-3">
+                                            <span>Después de Normalización</span>
+                                            <span>87%</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between">
+                                            <span>Después de Balanceo</span>
+                                            <span>100%</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -471,8 +574,25 @@
                     <div class="accordion-body">
                         <p>El análisis de correlación nos ayuda a identificar relaciones entre las diferentes características del dataset, lo que puede ser útil para reducir la dimensionalidad.</p>
                         
-                        <div class="chart-container" style="height: 400px;">
-                            <canvas id="correlationHeatmap"></canvas>
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Correlación con Variable Objetivo</h5>
+                                <div class="progress mb-3" style="height: 25px;">
+                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 65%">src_bytes (0.65)</div>
+                                </div>
+                                <div class="progress mb-3" style="height: 25px;">
+                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 58%">dst_bytes (0.58)</div>
+                                </div>
+                                <div class="progress mb-3" style="height: 25px;">
+                                    <div class="progress-bar bg-info" role="progressbar" style="width: 52%">count (0.52)</div>
+                                </div>
+                                <div class="progress mb-3" style="height: 25px;">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 48%">serror_rate (0.48)</div>
+                                </div>
+                                <div class="progress mb-3" style="height: 25px;">
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: 45%">srv_serror_rate (0.45)</div>
+                                </div>
+                            </div>
                         </div>
                         
                         <div class="row mt-4">
@@ -509,8 +629,22 @@
                         <i class="fas fa-tachometer-alt me-2"></i>Rendimiento de Modelos
                     </div>
                     <div class="card-body">
-                        <div class="chart-container">
-                            <canvas id="modelPerformanceChart"></canvas>
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Comparación de Modelos</h5>
+                                <div class="progress mb-3" style="height: 25px;">
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: 96%">Random Forest (96%)</div>
+                                </div>
+                                <div class="progress mb-3" style="height: 25px;">
+                                    <div class="progress-bar bg-info" role="progressbar" style="width: 92%">SVM (92%)</div>
+                                </div>
+                                <div class="progress mb-3" style="height: 25px;">
+                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 95%">Red Neuronal (95%)</div>
+                                </div>
+                                <div class="progress mb-3" style="height: 25px;">
+                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 96%">XGBoost (96%)</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -572,8 +706,25 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-8">
-                        <div class="chart-container">
-                            <canvas id="confusionMatrixChart"></canvas>
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Resultados por Categoría (%)</h5>
+                                <div class="progress mb-3" style="height: 25px;">
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: 92%">Normal (92%)</div>
+                                </div>
+                                <div class="progress mb-3" style="height: 25px;">
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: 96%">DoS (96%)</div>
+                                </div>
+                                <div class="progress mb-3" style="height: 25px;">
+                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 89%">Probe (89%)</div>
+                                </div>
+                                <div class="progress mb-3" style="height: 25px;">
+                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 78%">R2L (78%)</div>
+                                </div>
+                                <div class="progress mb-3" style="height: 25px;">
+                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 65%">U2R (65%)</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -608,9 +759,9 @@
                         <a href="#" class="btn btn-outline-light btn-sm me-2">
                             <i class="fab fa-github me-1"></i>Repositorio
                         </a>
-                        <a href="#" class="btn btn-outline-light btn-sm">
+                        <button id="downloadNotebookFooter" class="btn btn-outline-light btn-sm">
                             <i class="fas fa-download me-1"></i>Descargar Notebook
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -624,271 +775,25 @@
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Simulación de datos para los gráficos (en un caso real, estos datos vendrían de una API o archivo)
+        // Función para simular la descarga del notebook
+        function downloadNotebook() {
+            // Crear un elemento de enlace temporal
+            const link = document.createElement('a');
+            link.href = '#'; // En un caso real, aquí iría la URL del notebook
+            link.download = 'Analisis_NSL_KDD_Notebook.ipynb';
+            
+            // Simular clic en el enlace
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            // Mostrar mensaje de confirmación
+            alert('La descarga del notebook comenzará en breve. En una implementación real, se descargaría el archivo .ipynb');
+        }
         
-        // Gráfico de distribución de clases
-        const classDistributionChart = new Chart(
-            document.getElementById('classDistributionChart'),
-            {
-                type: 'pie',
-                data: {
-                    labels: ['Normal', 'DoS', 'Probe', 'R2L', 'U2R'],
-                    datasets: [{
-                        data: [53.5, 21.3, 13.2, 10.1, 1.9],
-                        backgroundColor: [
-                            '#2ecc71',
-                            '#e74c3c',
-                            '#f39c12',
-                            '#3498db',
-                            '#9b59b6'
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'right'
-                        },
-                        title: {
-                            display: true,
-                            text: 'Distribución de Clases en NSL-KDD (%)'
-                        }
-                    }
-                }
-            }
-        );
-        
-        // Gráfico de tipos de ataque
-        const attackTypesChart = new Chart(
-            document.getElementById('attackTypesChart'),
-            {
-                type: 'bar',
-                data: {
-                    labels: ['Normal', 'Neptune', 'Satan', 'IPSweep', 'PortSweep', 'Smurf', 'Other'],
-                    datasets: [{
-                        label: 'Número de Registros',
-                        data: [67343, 41214, 3633, 3599, 2931, 2646, 10607],
-                        backgroundColor: '#3498db',
-                        borderColor: '#2980b9',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        title: {
-                            display: true,
-                            text: 'Distribución de Tipos de Ataque'
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            }
-        );
-        
-        // Gráfico de importancia de características
-        const featureImportanceChart = new Chart(
-            document.getElementById('featureImportanceChart'),
-            {
-                type: 'bar',
-                data: {
-                    labels: ['src_bytes', 'dst_bytes', 'service', 'flag', 'count', 'serror_rate', 'protocol_type', 'dst_host_srv_count'],
-                    datasets: [{
-                        label: 'Importancia',
-                        data: [0.152, 0.128, 0.098, 0.087, 0.076, 0.065, 0.054, 0.048],
-                        backgroundColor: '#2ecc71',
-                        borderColor: '#27ae60',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    indexAxis: 'y',
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: 'Características Más Importantes (Random Forest)'
-                        }
-                    }
-                }
-            }
-        );
-        
-        // Gráfico de preprocesamiento
-        const preprocessingChart = new Chart(
-            document.getElementById('preprocessingChart'),
-            {
-                type: 'doughnut',
-                data: {
-                    labels: ['Datos Originales', 'Limpieza', 'Codificación', 'Normalización', 'Balanceo'],
-                    datasets: [{
-                        data: [100, 95, 87, 87, 100],
-                        backgroundColor: [
-                            '#e74c3c',
-                            '#f39c12',
-                            '#3498db',
-                            '#2ecc71',
-                            '#9b59b6'
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'bottom'
-                        },
-                        title: {
-                            display: true,
-                            text: 'Proceso de Preprocesamiento (% de datos)'
-                        }
-                    }
-                }
-            }
-        );
-        
-        // Gráfico de rendimiento de modelos
-        const modelPerformanceChart = new Chart(
-            document.getElementById('modelPerformanceChart'),
-            {
-                type: 'radar',
-                data: {
-                    labels: ['Precisión', 'Recall', 'F1-Score', 'Velocidad', 'Interpretabilidad'],
-                    datasets: [
-                        {
-                            label: 'Random Forest',
-                            data: [95, 94, 95, 85, 90],
-                            backgroundColor: 'rgba(52, 152, 219, 0.2)',
-                            borderColor: 'rgba(52, 152, 219, 1)',
-                            pointBackgroundColor: 'rgba(52, 152, 219, 1)'
-                        },
-                        {
-                            label: 'SVM',
-                            data: [92, 90, 91, 70, 60],
-                            backgroundColor: 'rgba(46, 204, 113, 0.2)',
-                            borderColor: 'rgba(46, 204, 113, 1)',
-                            pointBackgroundColor: 'rgba(46, 204, 113, 1)'
-                        },
-                        {
-                            label: 'Red Neuronal',
-                            data: [95, 94, 94, 60, 40],
-                            backgroundColor: 'rgba(155, 89, 182, 0.2)',
-                            borderColor: 'rgba(155, 89, 182, 1)',
-                            pointBackgroundColor: 'rgba(155, 89, 182, 1)'
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        r: {
-                            angleLines: {
-                                display: true
-                            },
-                            suggestedMin: 0,
-                            suggestedMax: 100
-                        }
-                    }
-                }
-            }
-        );
-        
-        // Matriz de confusión
-        const confusionMatrixChart = new Chart(
-            document.getElementById('confusionMatrixChart'),
-            {
-                type: 'bar',
-                data: {
-                    labels: ['Normal', 'DoS', 'Probe', 'R2L', 'U2R'],
-                    datasets: [
-                        {
-                            label: 'Verdaderos Positivos',
-                            data: [92, 96, 89, 78, 65],
-                            backgroundColor: '#2ecc71'
-                        },
-                        {
-                            label: 'Falsos Positivos',
-                            data: [3, 2, 5, 8, 12],
-                            backgroundColor: '#e74c3c'
-                        },
-                        {
-                            label: 'Falsos Negativos',
-                            data: [5, 2, 6, 14, 23],
-                            backgroundColor: '#f39c12'
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        x: {
-                            stacked: true
-                        },
-                        y: {
-                            stacked: true,
-                            max: 100
-                        }
-                    }
-                }
-            }
-        );
-        
-        // Heatmap de correlación (simplificado)
-        const correlationHeatmap = new Chart(
-            document.getElementById('correlationHeatmap'),
-            {
-                type: 'bar',
-                data: {
-                    labels: ['src_bytes', 'dst_bytes', 'count', 'serror_rate', 'srv_serror_rate', 'dst_host_count', 'dst_host_srv_count'],
-                    datasets: [
-                        {
-                            label: 'Correlación con Ataque',
-                            data: [0.65, 0.58, 0.52, 0.48, 0.45, 0.41, 0.38],
-                            backgroundColor: [
-                                'rgba(231, 76, 60, 0.7)',
-                                'rgba(231, 76, 60, 0.65)',
-                                'rgba(231, 76, 60, 0.6)',
-                                'rgba(231, 76, 60, 0.55)',
-                                'rgba(231, 76, 60, 0.5)',
-                                'rgba(231, 76, 60, 0.45)',
-                                'rgba(231, 76, 60, 0.4)'
-                            ]
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: 'Correlación de Características con Variable Objetivo'
-                        }
-                    },
-                    scales: {
-                        y: {
-                            max: 1
-                        }
-                    }
-                }
-            }
-        );
+        // Añadir event listeners para los botones de descarga
+        document.getElementById('downloadNotebook').addEventListener('click', downloadNotebook);
+        document.getElementById('downloadNotebookFooter').addEventListener('click', downloadNotebook);
     </script>
 </body>
 </html>
